@@ -3,7 +3,25 @@
   color: #ffffff;
   padding: 0.5rem 1rem;
   min-height: 4rem;
-  h1 {
-    margin: 0;
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  .icon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    i {
+      border: 1px solid;
+      cursor: pointer;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      justify-content: center;
+    }
   }
 }
