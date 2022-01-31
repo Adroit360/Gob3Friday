@@ -56,7 +56,7 @@
 }
 
 .navbar {
-  background: #febe19;
+  background: rgb(31 41 55);
   display: flex;
   align-items: center;
   padding: 0rem 1rem;
@@ -86,7 +86,7 @@
     padding: 0;
     a {
       text-decoration: none;
-      color: #000000;
+      color: rgb(243 244 246);
     }
     li {
       padding: 0.5rem;
@@ -95,13 +95,13 @@
       transition: border-bottom 100ms ease-in;
       &:hover {
         padding-bottom: 0.1rem;
-        border-bottom: 5px solid #000000;
+        border-bottom: 5px solid rgb(243 244 246);
       }
     }
   }
 }
 .form-container {
-  background-color: #fefbe6;
+  background-color: rgb(243 244 246);
 }
 .container {
   margin-top: 4rem;
