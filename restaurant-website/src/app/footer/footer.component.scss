@@ -6,8 +6,9 @@
   min-height: 4rem;
   .social-icons {
     display: flex;
-    gap: 1rem;
-    justify-content: space-between;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   .address {
     display: flex;
