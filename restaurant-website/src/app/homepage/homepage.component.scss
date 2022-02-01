@@ -168,61 +168,30 @@
       }
 
       .body__intro__buttons {
-        display: flex;
-        gap: 1rem;
-        @media screen and (max-width: 400px) {
-          flex-direction: column;
-        }
-        .order__now {
-          background: rgb(31 41 55);
-          border-radius: 20px;
-          display: inline-block;
-          cursor: pointer;
-          border: none;
-          color: #ffffff;
-          font-weight: bold;
-          font-size: 1rem;
-          padding: 1rem 2rem;
-          @media screen and (max-width: 700px) {
-            padding: 1rem;
-          }
-          transition: background-color 100ms ease-in;
-        }
         .our__menu {
-          background-color: #ffffff;
+          background-color: #fff200;
           border-radius: 20px;
           display: inline-block;
+          box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
+            0 1px 2px -1px rgb(0 0 0 / 0.1);
           cursor: pointer;
           border: none;
           color: rgb(31 41 55);
-          border: 2px solid rgb(31 41 55);
+          text-transform: uppercase;
+          border: 2px solid #fffa65;
           font-weight: bold;
           font-size: 1rem;
           padding: 1rem 1rem;
-        }
-      }
-    }
-    .body__middle {
-      background-color: rgb(243 244 246);
-      .body__intro__right {
-        @media screen and (max-width: 700px) {
-          order: 2;
-        }
-        img {
-          object-fit: contain;
-          width: 25rem;
-          height: 30rem;
-          @media screen and (max-width: 900px) {
-            width: 20rem;
-            height: 16rem;
-          }
-          @media screen and (max-width: 700px) {
-            width: 17rem;
-            height: 16rem;
+          font-family: "Poppins", sans-serif;
+          font-weight: bold;
+          transition: background-color 200ms ease-in;
+          &:hover {
+            background-color: #fffa65;
           }
         }
       }
     }
+
     .body__menu {
       background: #ffffff;
       display: flex;
@@ -235,6 +204,7 @@
         text-align: center;
         text-transform: uppercase;
         padding: 1rem 0rem;
+        margin-top: 4rem;
       }
     }
   }
