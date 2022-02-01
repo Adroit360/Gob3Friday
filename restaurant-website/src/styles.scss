@@ -21,8 +21,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    // box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024,
-    //   0 1px 3px #0000001f;
     box-shadow: rgb(0 0 0 / 20%) 0px 0.2rem 0.32rem -1px,
       rgb(0 0 0 / 14%) 0px 0.375rem 0.625rem 0px,
       rgb(0 0 0 / 12%) 0px 1px 1.125rem 0px;
@@ -52,7 +50,6 @@ body {
       justify-content: space-between;
       align-items: center;
       button {
-        //   box-shadow: -1px 1px 6px 0px rgba(0, 0, 0, 0.2);
         background: rgb(31 41 55);
         border-radius: 10px;
         display: inline-block;
