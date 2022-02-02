@@ -188,8 +188,18 @@
       background: #ffffff;
       display: flex;
       flex-direction: column;
-      max-width: 80rem;
+      // max-width: 70rem;
       width: 100%;
+
+      background-image: linear-gradient(
+        to right bottom,
+        #812006,
+        #a54f07,
+        #c47e0e,
+        #dcb023,
+        #ece445
+      );
+
       margin: auto;
       gap: 3rem;
       h1 {
@@ -197,6 +207,7 @@
         text-transform: uppercase;
         padding: 1rem 0rem;
         margin-top: 4rem;
+        color: #ffffff;
       }
     }
   }
@@ -212,9 +223,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    // box-shadow: rgb(0 0 0 / 20%) 0px 0.2rem 0.32rem -1px,
-    //   rgb(0 0 0 / 14%) 0px 0.375rem 0.625rem 0px,
-    //   rgb(0 0 0 / 12%) 0px 1px 1.125rem 0px;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     background-color: rgb(243 244 246);
@@ -259,3 +267,12 @@
     }
   }
 }
+
+// background-image: linear-gradient(
+//       to right bottom,
+//       #f5cb0a,
+//       #ffa118,
+//       #ff7438,
+//       #ff4556,
+//       #eb1272
+//     );
