@@ -201,3 +201,17 @@
     }
   }
 }
+
+.menu__container {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  .menu__meal__card {
+    border: 1px solid blue;
+    .menu__meal-box {
+      border: 1px solid yellow;
+      display: flex;
+    }
+  }
+}
