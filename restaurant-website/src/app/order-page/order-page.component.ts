@@ -146,6 +146,7 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
+    return;
 
     if (this.orderForm.value.robot) {
       return;

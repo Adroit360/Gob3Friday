@@ -64,9 +64,9 @@ export class SocketService {
     {
       id: '4d2da93389ce48aa8841c56891494942',
       body: 'Jumbo pack',
-      image: '../../assets/riceWithFishAndEgg.jpg',
+      image: '../../assets/jumboPack.jpeg',
       alt: 'Jumbo pack',
-      price: '30.00',
+      price: '40.00',
     },
     {
       id: 'c92a574c98634a70998b71d110f51fd5',
