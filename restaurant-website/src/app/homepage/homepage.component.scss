@@ -278,12 +278,17 @@
     }
   }
 }
-
-// background-image: linear-gradient(
-//       to right bottom,
-//       #f5cb0a,
-//       #ffa118,
-//       #ff7438,
-//       #ff4556,
-//       #eb1272
-//     );
+.events {
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 40rem;
+    margin: auto;
+    text-align: center;
+    color: #1f2937;
+    font-size: 1.2rem;
+    padding: 3rem 1rem;
+  }
+  background-color: rgb(243 244 246);
+}
