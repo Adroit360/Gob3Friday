@@ -89,6 +89,27 @@ export class SocketService {
       alt: '3tor in Ayewa',
       price: '75.00',
     },
+    {
+      id: '596e88701eaf40e6aedb4fb1c5753e4e',
+      body: '1 tier',
+      image: '../../assets/gob3Cake.jpeg',
+      alt: '3tor in Ayewa',
+      price: '350.00',
+    },
+    {
+      id: '6e43e30afe3e43289b55b29b0bcefb05',
+      body: '1 tier',
+      image: '../../assets/gob3Cake.jpeg',
+      alt: '3tor in Ayewa',
+      price: '400.00',
+    },
+    {
+      id: '99a22ef88cc44fffa947d0fc16cccee1',
+      body: '2 tier',
+      image: '../../assets/gob3Cake.jpeg',
+      alt: '3tor in Ayewa',
+      price: '550.00',
+    },
   ];
 
   getFoodByID(id: string): Food {
