@@ -84,7 +84,9 @@
       gap: 1rem;
       a {
         text-decoration: none;
-        color: rgb(243 244 246);
+        color: #000000;
+        font-weight: 600;
+        // color: #f3f4f6;
       }
       li {
         padding: 0.5rem;
@@ -93,7 +95,7 @@
         transition: border-bottom 100ms ease-in;
         &:hover {
           padding-bottom: 0.1rem;
-          border-bottom: 5px solid rgb(243 244 246);
+          border-bottom: 5px solid #000000;
         }
       }
     }

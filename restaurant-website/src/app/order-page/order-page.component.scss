@@ -90,7 +90,8 @@
     padding: 0;
     a {
       text-decoration: none;
-      color: rgb(243 244 246);
+      color: #000000;
+      font-weight: 600;
     }
     li {
       padding: 0.5rem;
@@ -99,7 +100,7 @@
       transition: border-bottom 100ms ease-in;
       &:hover {
         padding-bottom: 0.1rem;
-        border-bottom: 5px solid rgb(243 244 246);
+        border-bottom: 5px solid #000000;
       }
     }
   }
@@ -230,11 +231,15 @@
       }
     }
     button {
-      background: #2d3436;
+      background: linear-gradient(
+        66deg,
+        rgba(255, 123, 74, 1) 44%,
+        rgba(255, 67, 91, 1) 84%
+      );
       display: inline-block;
       cursor: pointer;
       border: none;
-      color: #ffffff;
+      color: #000000;
       font-weight: bold;
       font-size: 1rem;
       padding: 1rem;
