@@ -48,7 +48,6 @@
 .container {
   height: 100vh;
   .navbar {
-    // background: linear-gradient(rgb(156 59 6), rgb(47 28 22));
     background: linear-gradient(
       66deg,
       rgba(255, 123, 74, 1) 44%,
@@ -194,17 +193,7 @@
       background: #ffffff;
       display: flex;
       flex-direction: column;
-      // max-width: 70rem;
       width: 100%;
-
-      // background-image: linear-gradient(
-      //   to right bottom,
-      //   #812006,
-      //   #a54f07,
-      //   #c47e0e,
-      //   #dcb023,
-      //   #ece445
-      // );
       background-color: #ffffff;
 
       margin: auto;
@@ -214,7 +203,6 @@
         text-transform: uppercase;
         padding: 1rem 0rem;
         margin-top: 4rem;
-        // color: #ffffff;
         color: rgb(31 41 55);
       }
     }
@@ -289,3 +277,7 @@
   }
   background-color: rgb(243 244 246);
 }
+
+/**
+background-image: linear-gradient(to bottom, #9206a4, #6b1482, #481460, #2b0f3e, #14001d);
+**/
