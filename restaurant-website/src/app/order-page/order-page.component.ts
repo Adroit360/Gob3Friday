@@ -162,6 +162,10 @@ export class OrderPageComponent implements OnInit {
       .post<PaymentResponse>(this.url, body, httpOptions)
       .subscribe((res: any) => {
         this.paymentLoading = false;
+        if (res.error) {
+          console.log(res.error);
+          return;
+        }
         this.payStackUrl = res.auth_url;
         this.payStackModal = true;
       });
