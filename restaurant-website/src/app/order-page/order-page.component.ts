@@ -17,6 +17,7 @@ import { io } from 'socket.io-client';
 import { PaymentResponse, Order, Food } from '../models/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { cities } from '../models/accra';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order-page',
@@ -32,12 +33,15 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
+  payStackUrl: string = '';
+  payStackModal = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
     private http: HttpClient,
     private socketService: SocketService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public domSanitizer: DomSanitizer
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
@@ -65,16 +69,13 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  // url = 'http://localhost:8000/api/payment';
+  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  url = 'http://localhost:8000/paystack/payment';
 
-  paymentError = false;
+  paymentError = true;
   paymentSuccess = false;
   submitted = false;
-  error = 'Payment was not successful. Please try again';
-  success = 'Successfully processed transaction.';
   paymentLoading = false;
-  paymentReason = 'Processing payment...';
   price = '';
   locations: { name: string; price: number }[] = cities;
   invalidLocation = false;
@@ -102,39 +103,6 @@ export class OrderPageComponent implements OnInit {
       });
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     });
-
-    this.socket.on('notification', (res: any) => {
-      this.data = res.data;
-      if (this.clientTransactionId === this.data.clienttransid) {
-        this.paymentReason = 'Processing payment...';
-
-        if (this.data.status === 'FAILED') {
-          this.paymentError = true;
-          // this.paymentSuccess = false;
-          this.paymentLoading = false;
-          setTimeout(() => {
-            this.paymentError = false;
-          }, 30000);
-        } else if (this.data.status === 'PAID') {
-          this.paymentError = false;
-          // this.paymentSuccess = true;
-          this.paymentLoading = false;
-          // this.postDetailsToFireBase(this.orderDetails);
-          setTimeout(() => {
-            // this.paymentSuccess = false;
-            this.modalOpen = true;
-          }, 500);
-        }
-      }
-    });
-  }
-
-  async postDetailsToFireBase(data: OrderDetails): Promise<void> {
-    try {
-      await this.createOrder(data);
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   // convenience getter for easy access to form fields
@@ -146,7 +114,6 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
-    return;
 
     if (this.orderForm.value.robot) {
       return;
@@ -186,29 +153,17 @@ export class OrderPageComponent implements OnInit {
     };
 
     const body = {
-      amount: this.totalPrice,
-      paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
-      walletnumber: this.FormatGhanaianPhoneNumber(
-        this.orderForm.value.phoneNumber
-      ),
+      amount: this.totalPrice * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
-
+    this.paymentLoading = true;
     this.http
       .post<PaymentResponse>(this.url, body, httpOptions)
-      .subscribe((res: PaymentResponse) => {
-        this.paymentLoading = true;
-        this.paymentReason = res.reason;
-        if (res.status === 'FAILED') {
-          this.paymentError = true;
-          // this.paymentSuccess = false;
-          this.paymentLoading = false;
-          this.error = res.reason;
-          setTimeout(() => {
-            this.paymentError = false;
-          }, 4000);
-        }
+      .subscribe((res: any) => {
+        this.paymentLoading = false;
+        this.payStackUrl = res.auth_url;
+        this.payStackModal = true;
       });
   }
 
@@ -225,52 +180,8 @@ export class OrderPageComponent implements OnInit {
     return false;
   }
 
-  createOrder(data: OrderDetails) {
-    return new Promise<any>((resolve, reject) => {
-      this.firestore
-        .collection('orders')
-        .add(data)
-        .then(
-          (res) => {
-            resolve(res);
-          },
-          (err) => reject(err)
-        );
-    });
-  }
-
-  getPhoneNetWork(phoneNumber: string): string | null {
-    let networkDeterminants = phoneNumber.substring(2, 3);
-    if (
-      networkDeterminants == '4' ||
-      networkDeterminants == '5' ||
-      networkDeterminants == '9'
-    )
-      return 'MTN';
-    else if (networkDeterminants == '0') return 'VODAFONE';
-    else if (networkDeterminants == '6' || networkDeterminants == '7')
-      return 'AIRTELTIGO';
-
-    return null;
-  }
-
-  FormatGhanaianPhoneNumber = (phoneNumber: string) => {
-    if (phoneNumber.startsWith('0') && phoneNumber.length == 10) {
-      return '233' + phoneNumber.substring(1);
-    } else if (!phoneNumber.startsWith('0') && phoneNumber.length == 9) {
-      return '233' + phoneNumber;
-    } else if (phoneNumber.startsWith('233') && phoneNumber.length == 12) {
-      return phoneNumber;
-    } else if (phoneNumber.startsWith('+233') && phoneNumber.length == 13) {
-      return phoneNumber.substring(1);
-    }
-
-    return phoneNumber;
-  };
-
   onClose(): void {
     this.paymentError = false;
-    // this.paymentSuccess = false;
   }
 
   calculateAmount(event: any) {

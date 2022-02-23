@@ -1,22 +1,4 @@
 <!--POPUP MODAL-->
-<div class="modal" *ngIf="modalOpen">
-  <div class="popup center">
-    <div class="icon">
-      <i class="fa fa-check"></i>
-    </div>
-    <div class="title">Success!!</div>
-    <div class="description">
-      Thank you for your order. Please wait while the delivery guy attends to
-      you😊
-    </div>
-    <div class="dismiss-btn">
-      <button id="dismiss-popup-btn" (click)="onCloseModal()">Dismiss</button>
-    </div>
-  </div>
-</div>
-<!--END POPUP MODAL-->
-
-<!--POPUP MODAL-->
 <div class="modal" *ngIf="addAnotherItemModal">
   <div style="max-height: calc(100vh - 4rem)" class="popup center">
     <div class="header">
@@ -43,34 +25,23 @@
 <!--END POPUP MODAL-->
 
 <!---PAYMENT RESPONSE MODAL-->
-<div class="modal payment__loading2" *ngIf="paymentLoading">
-  <div class="popup center">
-    <div class="description">
-      {{ paymentReason }}
-    </div>
+<div class="modal" *ngIf="paymentLoading">
+  <div class="popup-payment center">
+    <div class="description">Processing payment...</div>
     <div class="icon">
       <div class="loader"></div>
     </div>
   </div>
 </div>
 <!---END PAYMENT RESPONSE MODAL-->
-<!--PAYMENT FAILED MODAL-->
-<div class="modal payment__error2" *ngIf="paymentError">
+<!--PAYSTACK POPUP-->
+<div class="modal payment__error2" *ngIf="payStackModal">
   <div class="popup center">
-    <div class="icon">
-      <span class="material-icons"> info </span>
-    </div>
-    <div class="title">Error!!</div>
-    <div class="description">
-      <p>{{ error }}</p>
-      <p class="description-info">
-        If you are using MTN, please dial *170#, select my approvals and approve
-        the payment. Your order will be successful👌
-      </p>
-    </div>
-    <div class="dismiss-btn">
-      <button id="dismiss-popup-btn" (click)="onClose()">Close</button>
-    </div>
+    <iframe
+      [src]="domSanitizer.bypassSecurityTrustResourceUrl(payStackUrl)"
+      title="description"
+      class="paystack-popup"
+    ></iframe>
   </div>
 </div>
 <!--END PAYMENT FAILED MODAL-->
@@ -87,24 +58,6 @@
   </nav>
 
   <div class="container">
-    <!-- <div class="payment__error" *ngIf="paymentError">
-      <div class="info">
-        <span class="material-icons"> info </span>
-        <p>{{ error }}</p>
-      </div>
-      <span class="material-icons close" (click)="onClose()"> close </span>
-    </div> -->
-    <!-- <div class="payment__success" *ngIf="paymentSuccess">
-      <div class="info">
-        <span class="material-icons"> check_circle </span>
-        <p>{{ success }}</p>
-      </div>
-      <span class="material-icons close" (click)="onClose()"> close </span>
-    </div> -->
-    <!-- <div class="payment__loading" *ngIf="paymentLoading">
-      <div class="loader"></div>
-      <p>{{ paymentReason }}</p>
-    </div> -->
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">
