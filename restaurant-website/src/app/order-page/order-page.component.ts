@@ -43,7 +43,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+    this.socket = io('https://gob3-friday.herokuapp.com/');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
   }
@@ -69,8 +69,8 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  url = 'http://localhost:8000/paystack/payment';
+  url = 'https://gob3-friday.herokuapp.com/paystack/payment';
+  // url = 'http://localhost:8000/paystack/payment';
 
   paymentError = true;
   paymentSuccess = false;
@@ -115,6 +115,7 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
+    console.log('reference: ', this.clientTransactionId);
     if (this.orderForm.value.robot) {
       return;
     }

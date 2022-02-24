@@ -1,25 +1,21 @@
 require("dotenv").config();
 const express = require("express");
-const request = require("request");
 const cors = require("cors");
-const https = require("https");
-const Redde = require("redde-nodejs-sdk");
 const http = require("http");
 const { Server } = require("socket.io");
-const { initializeApp } = require("firebase-admin/app");
 const axios = require("axios");
 
-var admin = require("firebase-admin");
+// var admin = require("firebase-admin");
 
-var serviceAccount = require("./serviceAccountKey.json");
+// var serviceAccount = require("./serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://restaurant-2a643-default-rtdb.firebaseio.com",
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://restaurant-2a643-default-rtdb.firebaseio.com",
+// });
 
 // firebase database object
-const db = admin.firestore();
+// const db = admin.firestore();
 
 let orderStatus = false;
 
@@ -72,35 +68,28 @@ app.post("/paystack/payment", async (req, res, next) => {
     console.log(error);
     res.json({ error: "an uexpected error occured please try again" });
   }
-
-  // try {
-  //   // await db.collection("orders").add(req.body.orderDetails);
-  //   const data = await post(receive.url, receive.json);
-  //   io.emit("notification", { data });
-  //   res.send(data);
-  // } catch (error) {
-  //   console.log(error);
-  //   next();
-  // }
 });
 
 //Callback Url Endpoint
-app.post("/api/reditpayment", async function (req, res) {
+app.post("/paystack/event", async function (req, res) {
   const data = req.body;
 
   try {
-    if (data.status == "PAID") {
-      let orderId = (
-        await db
-          .collection("orders")
-          .where("orderId", "==", data.clienttransid)
-          .get()
-      ).docs[0].id;
-      await db.collection("orders").doc(orderId).update({
-        orderPaid: true,
-      });
-      res.send(200);
-    }
+    // if (data.event == "charge.success") {
+    //   // let orderId = (
+    //   //   await db
+    //   //     .collection("orders")
+    //   //     .where("orderId", "==", data.data.reference)
+    //   //     .get()
+    //   // ).docs[0].id;
+    //   // await db.collection("orders").doc(orderId).update({
+    //   //   orderPaid: true,
+    //   // });
+    //   // res.send(200);
+    // }
+    console.log("event-type: ", data.event);
+    console.log("reference: ", data.data.reference);
+    res.status(200);
   } catch (error) {
     console.log(error);
   }
