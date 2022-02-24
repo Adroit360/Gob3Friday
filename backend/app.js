@@ -33,31 +33,10 @@ const io = new Server(server, {
   },
 });
 
-const corsOptions = {
-  origin: "https://restaurant-website-a1ad455655.netlify.app/*",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204,
-  methods: ["GET", "PUT", "POST"],
-  allowedHeaders:
-    ("Access-Control-Allow-Origin",
-    "https://restaurant-website-a1ad455655.netlify.app/"),
-};
-
-const users = [];
-
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://restaurant-website-a1ad455655.netlify.app"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 require("./startup/prod")(app);
 
 app.get("/", (req, res) => {
@@ -65,76 +44,44 @@ app.get("/", (req, res) => {
   res.json({ orderStatus });
 });
 
-// handles post request in the api endpoint
-async function post(url, data) {
-  const dataString = JSON.stringify(data);
-
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      apikey: process.env.API_KEY,
-    },
-    // timeout: 1000, // in ms
+//cors(corsOptions),
+app.post("/paystack/payment", async (req, res, next) => {
+  const data = {
+    amount: req.body.amount,
+    email: `customer${Date.now()}@email.com`,
+    reference: req.body.clientId,
+    channels: ["mobile_money", "card"],
   };
 
-  return new Promise((resolve, reject) => {
-    const req = https.request(url, options, (res) => {
-      const body = [];
-      res.on("data", (chunk) => body.push(chunk));
-      res.on("end", () => {
-        const resString = Buffer.concat(body).toString();
-        resolve(resString);
-      });
-    });
-
-    req.on("error", (err) => {
-      reject(err);
-    });
-
-    req.on("timeout", () => {
-      req.destroy();
-      reject(new Error("Request time out"));
-    });
-
-    req.write(dataString);
-    req.end();
-  });
-}
-
-//cors(corsOptions),
-
-app.post("/api/payment", cors(), async (req, res, next) => {
-  // res.setHeader(
-  //   "Access-Control-Allow-Origin",
-  //   "https://restaurant-website-a1ad455655.netlify.app/"
-  // );
-  //Instantiate ReddeApi class
-  const redde = new Redde(process.env.API_KEY, process.env.API_ID.toString());
-  //Generating Random Client Reference
-  var ref = redde.clientRef(6);
-  //Generating Random Client ID
-  // var clientid = redde.clientID(6);
-  //Calling Receive Function
-  var receive = redde.receiveMoney(
-    parseFloat(req.body.amount).toFixed(2),
-    req.body.paymentoption,
-    req.body.walletnumber,
-    ref,
-    req.body.clientId
-  );
-
-  // console.log(req.body.orderDetails);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`,
+      "Content-Type": "application/json",
+    },
+  };
 
   try {
     // await db.collection("orders").add(req.body.orderDetails);
-    const data = await post(receive.url, receive.json);
-    io.emit("notification", { data });
-    res.send(data);
+    const response = await axios.post(
+      "https://api.paystack.co/transaction/initialize",
+      data,
+      config
+    );
+    res.json({ auth_url: response.data.data.authorization_url });
   } catch (error) {
     console.log(error);
-    next();
+    res.json({ error: "an uexpected error occured please try again" });
   }
+
+  // try {
+  //   // await db.collection("orders").add(req.body.orderDetails);
+  //   const data = await post(receive.url, receive.json);
+  //   io.emit("notification", { data });
+  //   res.send(data);
+  // } catch (error) {
+  //   console.log(error);
+  //   next();
+  // }
 });
 
 //Callback Url Endpoint
@@ -152,16 +99,8 @@ app.post("/api/reditpayment", async function (req, res) {
       await db.collection("orders").doc(orderId).update({
         orderPaid: true,
       });
-      //       axios
-      //         .get(
-      //           `http://sms.adroit360gh.com/sms/api?action=send-sms&api_key=YWRtaW46YWRtaW4ucGFzc3dvcmQ=&to=${orderDetails.phoneNumber}&from=LEBENE&sms=Thank you for ${orderDetails.name} your order
-      // Your order ID is ${data.clienttransid}. A dispatch rider will contact you shortly. For any enquiry contact ******. Thank you.`
-      //         )
-      //         .catch((error) => console.log(error));
+      res.send(200);
     }
-
-    io.emit("notification", { data });
-    res.send(data);
   } catch (error) {
     console.log(error);
   }
