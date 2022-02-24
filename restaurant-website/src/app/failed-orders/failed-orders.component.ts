@@ -59,13 +59,6 @@ export class FailedOrdersComponent implements OnInit {
   }
 
   onDeleteAllFailedOrders() {
-    this.exampleGetCollection().subscribe((res) => {
-      // console.log('Deleting....');
-      // res.forEach((item: any) => {
-      //   this.deleteOrder(item.Id);
-      //   // console.log(item.Id);
-      // });
-      // console.log('Done....');
-    });
+    this.exampleGetCollection().subscribe((res) => {});
   }
 }

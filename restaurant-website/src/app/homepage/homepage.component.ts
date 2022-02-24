@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
     private socketService: SocketService,
     private http: HttpClient
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    this.socket = io('https://gob3-friday.herokuapp.com/');
     // this.socket = io('http://localhost:8000/');
   }
 
@@ -35,7 +35,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();
     // this.http
-    //   .get('https://restaurant-payment-backend.herokuapp.com/')
+    //   .get('https://gob3-friday.herokuapp.com/')
     //   .subscribe((res: any) => {
     //     this.orderStatus = res.orderStatus;
     //     const currentDate = new Date();
@@ -52,7 +52,7 @@ export class HomepageComponent implements OnInit {
     //   });
 
     this.http
-      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .get('https://gob3-friday.herokuapp.com/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {

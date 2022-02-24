@@ -15,7 +15,7 @@ export class AuthenticationService {
   }
 
   async getAuthStatus() {
-    let authUserstring = localStorage.getItem('authUser');
+    let authUserstring = localStorage.getItem('admin');
     if (authUserstring) {
       return JSON.parse(authUserstring);
     } else {
@@ -23,7 +23,7 @@ export class AuthenticationService {
       if (authUser) {
         // localStorage.setItem('authUser', JSON.stringify(authUser));
         const status = { loggedIn: true };
-        localStorage.setItem('authUser', JSON.stringify(status));
+        localStorage.setItem('admin', JSON.stringify(status));
         return status;
       } else {
         return null;
