@@ -5,17 +5,17 @@ const http = require("http");
 const { Server } = require("socket.io");
 const axios = require("axios");
 
-// var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 
-// var serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require("./serviceAccountKey.json");
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://restaurant-2a643-default-rtdb.firebaseio.com",
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://gob3-friday-default-rtdb.firebaseio.com",
+});
 
 // firebase database object
-// const db = admin.firestore();
+const db = admin.firestore();
 
 let orderStatus = false;
 
@@ -57,7 +57,7 @@ app.post("/paystack/payment", async (req, res, next) => {
   };
 
   try {
-    // await db.collection("orders").add(req.body.orderDetails);
+    await db.collection("orders").add(req.body.orderDetails);
     const response = await axios.post(
       "https://api.paystack.co/transaction/initialize",
       data,
@@ -75,21 +75,18 @@ app.post("/paystack/event", async function (req, res) {
   const data = req.body;
 
   try {
-    // if (data.event == "charge.success") {
-    //   // let orderId = (
-    //   //   await db
-    //   //     .collection("orders")
-    //   //     .where("orderId", "==", data.data.reference)
-    //   //     .get()
-    //   // ).docs[0].id;
-    //   // await db.collection("orders").doc(orderId).update({
-    //   //   orderPaid: true,
-    //   // });
-    //   // res.send(200);
-    // }
-    console.log("event-type: ", data.event);
-    console.log("reference: ", data.data.reference);
-    res.status(200);
+    if (data.event == "charge.success") {
+      let orderId = (
+        await db
+          .collection("orders")
+          .where("orderId", "==", data.data.reference)
+          .get()
+      ).docs[0].id;
+      await db.collection("orders").doc(orderId).update({
+        orderPaid: true,
+      });
+      res.send(200);
+    }
   } catch (error) {
     console.log(error);
   }
