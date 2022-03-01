@@ -115,7 +115,7 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    console.log('reference: ', this.clientTransactionId);
+    // console.log('reference: ', this.clientTransactionId);
     if (this.orderForm.value.robot) {
       return;
     }

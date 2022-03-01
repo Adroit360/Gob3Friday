@@ -22,7 +22,10 @@ export class AuthenticationService {
       let authUser = await this.afAuth.currentUser;
       if (authUser) {
         // localStorage.setItem('authUser', JSON.stringify(authUser));
-        const status = { loggedIn: true };
+        const status = {
+          loggedIn: true,
+          // expirationTime: Date.now() + 86400000,
+        };
         localStorage.setItem('admin', JSON.stringify(status));
         return status;
       } else {
