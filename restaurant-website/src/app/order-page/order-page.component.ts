@@ -33,7 +33,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
-  payStackUrl: string = '';
+  payStackUrl: any;
   payStackModal = false;
   constructor(
     private router: Router,
@@ -154,7 +154,8 @@ export class OrderPageComponent implements OnInit {
     };
 
     const body = {
-      amount: this.totalPrice * 100,
+      // amount: this.totalPrice * 100,
+      amount: 0.01 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
@@ -167,7 +168,9 @@ export class OrderPageComponent implements OnInit {
           console.log(res.error);
           return;
         }
-        this.payStackUrl = res.auth_url;
+        this.payStackUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+          res.auth_url
+        );
         this.payStackModal = true;
       });
   }
@@ -236,7 +239,8 @@ export class OrderPageComponent implements OnInit {
     // return 0.01;
   }
   onCloseModal(): void {
-    this.modalOpen = false;
+    console.log('res');
+    this.payStackModal = false;
     this.router.navigate(['/']);
   }
 
