@@ -81,6 +81,9 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    @media screen and (max-width: 400px) {
+      flex: 0.7;
+    }
   }
   ul {
     list-style: none;
