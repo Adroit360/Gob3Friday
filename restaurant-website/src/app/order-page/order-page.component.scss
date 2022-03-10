@@ -299,7 +299,7 @@
   animation-name: animatetop;
   animation-duration: 300ms;
   @media screen and (max-width: 650px) {
-    height: 100vh;
+    // height: 100vh;
     border-radius: 0;
   }
 }
@@ -440,6 +440,7 @@
 }
 
 .paystack-popup {
+  margin-top: 5rem;
   width: 100%;
   border: none;
   height: 100%;

@@ -239,7 +239,6 @@ export class OrderPageComponent implements OnInit {
     // return 0.01;
   }
   onCloseModal(): void {
-    console.log('res');
     this.payStackModal = false;
     this.router.navigate(['/']);
   }
