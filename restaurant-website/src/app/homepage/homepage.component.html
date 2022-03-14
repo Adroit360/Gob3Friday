@@ -39,7 +39,10 @@
     <div class="body__menu" id="menu">
       <h1>Our Menu</h1>
       <div class="menu__container">
-        <div class="menu__meal__card" *ngFor="let item of foodArray">
+        <div
+          class="menu__meal__card"
+          *ngFor="let item of foodArray.slice(0, 9)"
+        >
           <div class="card__image">
             <img src="{{ item.image }}" alt="{{ item.alt }}" />
           </div>
@@ -47,6 +50,29 @@
           <div class="card__price">
             <h4>{{ "GHS " + item.price }}</h4>
             <button (click)="onProceedToOrderPage(item.id)">order now</button>
+          </div>
+        </div>
+      </div>
+      <div class="special">
+        <h1>Special Orders</h1>
+        <p class="note">
+          Since the 3tor takes time to prepare and it's not prepared every day,
+          please always call or whatsapp first to check if it's available before
+          you make an order thank you😊
+        </p>
+        <div class="menu__container">
+          <div
+            class="menu__meal__card"
+            *ngFor="let item of foodArray.slice(-5)"
+          >
+            <div class="card__image">
+              <img src="{{ item.image }}" alt="{{ item.alt }}" />
+            </div>
+            <div class="card__body">{{ item.body }}</div>
+            <div class="card__price">
+              <h4>{{ "GHS " + item.price }}</h4>
+              <button (click)="onProceedToOrderPage(item.id)">order now</button>
+            </div>
           </div>
         </div>
       </div>

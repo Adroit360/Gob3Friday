@@ -280,6 +280,14 @@
   background-color: rgb(243 244 246);
 }
 
+.note {
+  max-width: 40rem;
+  margin: auto;
+  text-align: center;
+  color: #1f2937;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
 /**
 1. background-image: linear-gradient(to bottom, #9206a4, #6b1482, #481460, #2b0f3e, #14001d);
 2. background-image: linear-gradient(to right bottom, #ddd6f3, #e6cbea, #f1bfda, #f9b4c3, #faaca8);

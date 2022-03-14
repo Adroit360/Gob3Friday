@@ -13,7 +13,7 @@ export class SocketService {
   foodArray: Food[] = [
     {
       id: '33cc84aebc4b49b9bdc181782680c493',
-      body: 'Gob3 standard pack',
+      body: 'Gob3 small pack',
       image: '../../assets/standardPack.jpeg',
       alt: 'Beans with plantain(Mini size)',
       price: '15.00',
@@ -91,21 +91,21 @@ export class SocketService {
     },
     {
       id: '596e88701eaf40e6aedb4fb1c5753e4e',
-      body: '1 tier',
+      body: '3tor cake(1 tier)',
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
       price: '350.00',
     },
     {
       id: '6e43e30afe3e43289b55b29b0bcefb05',
-      body: '1 tier',
+      body: '3otr cake(1 tier big)',
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
       price: '400.00',
     },
     {
       id: '99a22ef88cc44fffa947d0fc16cccee1',
-      body: '2 tier',
+      body: '3tor cake 2 tier',
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
       price: '550.00',
