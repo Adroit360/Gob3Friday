@@ -72,7 +72,6 @@ export class HomepageComponent implements OnInit {
     });
 
     this.foodArray = this.socketService.getAllFoods();
-    console.log(this.foodArray.slice(-5));
   }
 
   onProceedToOrderPage(id: number): void {

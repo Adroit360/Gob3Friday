@@ -1,8 +1,8 @@
 export const cities = [
-  { name: 'Accra Metropolitan ', price: 15 },
-  { name: 'Accra Mall', price: 25 },
-  { name: 'Action Chapel', price: 25 },
-  { name: 'palace mall(spintex)', price: 25 },
+  { name: 'Accra Metropolitan ', price: 10 },
+  { name: 'Accra Mall', price: 12 },
+  { name: 'Action Chapel', price: 12 },
+  { name: 'palace mall(spintex)', price: 12 },
   { name: 'Achimota', price: 15 },
   { name: 'Adabraka', price: 10 },
   { name: 'Adenta', price: 30 },
