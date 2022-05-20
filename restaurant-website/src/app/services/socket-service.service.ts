@@ -73,7 +73,7 @@ export class SocketService {
       body: 'aboboi',
       image: '../../assets/aboboi.jpg',
       alt: 'aboboi',
-      price: '25.00',
+      price: '30.00',
     },
     {
       id: '91fcca31cba046fea468af2c659bcf86',

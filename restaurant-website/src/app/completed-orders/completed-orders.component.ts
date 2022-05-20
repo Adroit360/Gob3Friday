@@ -12,8 +12,30 @@ import { OrderType } from '../single-order/single-order.component';
 export class CompletedOrdersComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
+  totalDeliveryPrice = 0;
+  totalAmount = 0;
+  startDate = new Date('4/5/2022');
+  endDate = new Date('4/20/2022').setHours(23, 59, 59, 999);
+  totalCount = 0;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.GetCompletedOrdersCollection();
+    this.item$.subscribe((items) => {
+      // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
+      // console.log('total : ', TotalAmount);
+      items.forEach((item) => {
+        if (
+          parseInt(item.date) >= this.startDate.getTime() &&
+          parseInt(item.date) <= this.endDate
+        ) {
+          this.totalAmount += parseFloat(item.amount);
+          this.totalCount += 1;
+        }
+      });
+      // console.log({
+      //   totalAmount: this.totalAmount,
+      //   totalCount: this.totalCount,
+      // });
+    });
   }
 
   ngOnInit(): void {
