@@ -58,7 +58,7 @@ export class SocketService {
       body: 'with fish',
       image: '../../assets/withFish.jpeg',
       alt: 'with fish',
-      price: '8.00',
+      price: '10.00',
     },
     {
       id: '6fe15e03186f478b8c2399ae70a51960',
@@ -80,7 +80,7 @@ export class SocketService {
       body: 'Jumbo pack',
       image: '../../assets/jumboPack.jpeg',
       alt: 'Jumbo pack',
-      price: '40.00',
+      price: '50.00',
     },
     {
       id: 'c92a574c98634a70998b71d110f51fd5',
