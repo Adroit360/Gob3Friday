@@ -33,11 +33,25 @@ export class SocketService {
       price: '40.00',
     },
     {
+      id: 'ddbf19c31b9c4844865bf59fbb8fc987',
+      body: 'with extra plantain',
+      image: '../../assets/plantain.jpeg',
+      alt: 'plantain',
+      price: '5.00',
+    },
+    {
       id: 'ddbf19c31b9c4844865bf59fbb8fc985',
       body: 'with egg',
       image: '../../assets/withEgg.jpeg',
       alt: 'with egg',
       price: '2.00',
+    },
+    {
+      id: 'ddbf19c31b9c4844865bf59fbb8fc986',
+      body: 'with pear',
+      image: '../../assets/pear.png',
+      alt: 'pear',
+      price: '5.00',
     },
     {
       id: 'ab62ad68aff443afa4c827a78a22e3a3',
