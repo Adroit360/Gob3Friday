@@ -41,7 +41,7 @@
       <div class="menu__container">
         <div
           class="menu__meal__card"
-          *ngFor="let item of foodArray.slice(0, 11)"
+          *ngFor="let item of foodArray.slice(0, 5)"
         >
           <div class="card__image">
             <img src="{{ item.image }}" alt="{{ item.alt }}" />
@@ -50,6 +50,24 @@
           <div class="card__price">
             <h4>{{ "GHS " + item.price }}</h4>
             <button (click)="onProceedToOrderPage(item.id)">order now</button>
+          </div>
+        </div>
+      </div>
+      <div class="special">
+        <h1>Add ons</h1>
+        <div class="menu__container">
+          <div
+            class="menu__meal__card"
+            *ngFor="let item of foodArray.slice(5, -5)"
+          >
+            <div class="card__image">
+              <img src="{{ item.image }}" alt="{{ item.alt }}" />
+            </div>
+            <div class="card__body">{{ item.body }}</div>
+            <div class="card__price">
+              <h4>{{ "GHS " + item.price }}</h4>
+              <button (click)="onProceedToOrderPage(item.id)">order now</button>
+            </div>
           </div>
         </div>
       </div>
