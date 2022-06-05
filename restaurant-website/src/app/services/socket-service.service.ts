@@ -33,6 +33,20 @@ export class SocketService {
       price: '60.00',
     },
     {
+      id: '4d2da93389ce48aa8841c56891494942',
+      body: 'Jumbo Pack. Contains Standard Pack, Extra Plantain, Egg & Pepper ,Pear ,Gizzard,Chicken/Fish',
+      image: '../../assets/jumboPack.jpeg',
+      alt: 'Jumbo pack',
+      price: '50.00',
+    },
+    {
+      id: 'c92a574c98634a70998b71d110f51fd5',
+      body: 'aboboi',
+      image: '../../assets/newAboboi.jpeg',
+      alt: 'aboboi',
+      price: '30.00',
+    },
+    {
       id: 'ddbf19c31b9c4844865bf59fbb8fc987',
       body: 'with extra plantain',
       image: '../../assets/plantain.jpeg',
@@ -75,20 +89,6 @@ export class SocketService {
       price: '8.00',
     },
 
-    {
-      id: '4d2da93389ce48aa8841c56891494942',
-      body: 'Jumbo Pack. Contains Standard Pack, Extra Plantain, Egg & Pepper ,Pear ,Gizzard,Chicken/Fish',
-      image: '../../assets/jumboPack.jpeg',
-      alt: 'Jumbo pack',
-      price: '50.00',
-    },
-    {
-      id: 'c92a574c98634a70998b71d110f51fd5',
-      body: 'aboboi',
-      image: '../../assets/newAboboi.jpeg',
-      alt: 'aboboi',
-      price: '30.00',
-    },
     {
       id: '91fcca31cba046fea468af2c659bcf86',
       body: '3tor (mini pack)',
