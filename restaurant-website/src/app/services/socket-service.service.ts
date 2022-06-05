@@ -26,24 +26,25 @@ export class SocketService {
       price: '20.00',
     },
     {
-      id: '4226d4f1e91e404880345bc18be88e5b',
-      body: 'gob3 premium pack. Contains Standard Pack, Extra Plantain ,Egg & Pepper ,Pear ,Gizzard ,Chicken/Fish ,*Priority Service',
-      image: '../../assets/fullSize.jpeg',
-      alt: 'gob3 premium pack',
-      price: '60.00',
-    },
-    {
       id: '4d2da93389ce48aa8841c56891494942',
-      body: 'Jumbo Pack. Contains Standard Pack, Extra Plantain, Egg & Pepper ,Pear ,Gizzard,Chicken/Fish',
+      body: 'Gob3 Jumbo Pack. Contains Standard Pack, Extra Plantain, Egg & Pepper ,Pear ,Gizzard,Chicken/Fish',
       image: '../../assets/jumboPack.jpeg',
       alt: 'Jumbo pack',
       price: '50.00',
     },
     {
+      id: '4226d4f1e91e404880345bc18be88e5b',
+      body: 'Gob3 Premium Pack. Contains Standard Pack, Extra Plantain ,Egg & Pepper ,Pear ,Gizzard ,Chicken/Fish ,*Priority Service',
+      image: '../../assets/fullSize.jpeg',
+      alt: 'gob3 premium pack',
+      price: '60.00',
+    },
+
+    {
       id: 'c92a574c98634a70998b71d110f51fd5',
-      body: 'aboboi',
+      body: 'Aboboi & Tatale (5Pcs)',
       image: '../../assets/newAboboi.jpeg',
-      alt: 'aboboi',
+      alt: 'Aboboi & Tatale (5Pcs)',
       price: '30.00',
     },
     {
