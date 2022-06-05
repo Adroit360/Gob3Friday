@@ -117,7 +117,13 @@ export class SocketService {
       alt: 'with gari',
       price: '1.00',
     },
-
+    {
+      id: 'c4d3ddc886c540149323387915598855',
+      body: 'with rice',
+      image: '../../assets/rice.jpeg',
+      alt: 'with rice',
+      price: '7.00',
+    },
     {
       id: '91fcca31cba046fea468af2c659bcf86',
       body: '3tor (mini pack)',
