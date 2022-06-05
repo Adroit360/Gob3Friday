@@ -89,6 +89,34 @@ export class SocketService {
       alt: 'with gizzard',
       price: '8.00',
     },
+    {
+      id: 'c4d3ddc886c540149323387915598848',
+      body: 'with yam chips',
+      image: '../../assets/Yam-Chips.jpg',
+      alt: 'with yam chips',
+      price: '7.00',
+    },
+    {
+      id: 'c4d3ddc886c540149323387915598849',
+      body: 'with tatale',
+      image: '../../assets/tatale.jpeg',
+      alt: 'with tatale',
+      price: '4.00',
+    },
+    {
+      id: 'c4d3ddc886c540149323387915598850',
+      body: 'with pepper',
+      image: '../../assets/pepper.jpg',
+      alt: 'with pepper',
+      price: '1.00',
+    },
+    {
+      id: 'c4d3ddc886c540149323387915598851',
+      body: 'with gari',
+      image: '../../assets/Garri.jpg',
+      alt: 'with gari',
+      price: '1.00',
+    },
 
     {
       id: '91fcca31cba046fea468af2c659bcf86',
@@ -110,13 +138,6 @@ export class SocketService {
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
       price: '370.00',
-    },
-    {
-      id: '6e43e30afe3e43289b55b29b0bcefb05',
-      body: '3otr cake(1 tier big)',
-      image: '../../assets/gob3Cake.jpeg',
-      alt: '3tor in Ayewa',
-      price: '400.00',
     },
     {
       id: '99a22ef88cc44fffa947d0fc16cccee1',

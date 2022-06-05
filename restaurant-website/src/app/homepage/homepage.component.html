@@ -58,7 +58,7 @@
         <div class="menu__container">
           <div
             class="menu__meal__card"
-            *ngFor="let item of foodArray.slice(5, -5)"
+            *ngFor="let item of foodArray.slice(5, -4)"
           >
             <div class="card__image">
               <img src="{{ item.image }}" alt="{{ item.alt }}" />
@@ -81,7 +81,7 @@
         <div class="menu__container">
           <div
             class="menu__meal__card"
-            *ngFor="let item of foodArray.slice(-5)"
+            *ngFor="let item of foodArray.slice(-4)"
           >
             <div class="card__image">
               <img src="{{ item.image }}" alt="{{ item.alt }}" />
