@@ -101,14 +101,14 @@ export class SocketService {
       body: '3tor in Ayewa',
       image: '../../assets/EtorInAyewa.jpeg',
       alt: '3tor in Ayewa',
-      price: '75.00',
+      price: '80.00',
     },
     {
       id: '596e88701eaf40e6aedb4fb1c5753e4e',
       body: '3tor cake(1 tier)',
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
-      price: '350.00',
+      price: '370.00',
     },
     {
       id: '6e43e30afe3e43289b55b29b0bcefb05',
@@ -122,7 +122,7 @@ export class SocketService {
       body: '3tor cake 2 tier',
       image: '../../assets/gob3Cake.jpeg',
       alt: '3tor in Ayewa',
-      price: '550.00',
+      price: '600.00',
     },
   ];
 
