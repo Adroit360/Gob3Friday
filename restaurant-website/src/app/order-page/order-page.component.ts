@@ -300,6 +300,7 @@ export class OrderPageComponent implements OnInit {
   onDeliveryTypeChange(event: any) {
     if (event.target.value === 'pick-up') {
       this.showLocation = false;
+      this.deliveryFee = 0;
     } else {
       this.showLocation = true;
     }
