@@ -35,6 +35,7 @@ export class OrderPageComponent implements OnInit {
   foodArray: any[] = [];
   payStackUrl: any;
   payStackModal = false;
+  showLocation = true;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -65,7 +66,6 @@ export class OrderPageComponent implements OnInit {
   });
 
   orderDetails: any;
-  showLocation = true;
   private socket: any;
   public data: any;
   modalOpen = false;
@@ -118,14 +118,12 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    console.log(this.orderForm.value);
-    return;
-
+    console.log(this.orderForm.invalid);
     // console.log('reference: ', this.clientTransactionId);
     if (this.orderForm.value.robot) {
       return;
     }
-    if (this.orderForm.invalid || this.invalidLocation) {
+    if ((this.orderForm.invalid || this.invalidLocation) && this.showLocation) {
       return;
     }
 
@@ -139,14 +137,22 @@ export class OrderPageComponent implements OnInit {
       amount: this.totalPrice,
       note: this.orderForm.value.note,
       completed: false,
-      location: this.orderForm.value.location,
-      deliveryFee: this.deliveryFee,
+      location:
+        this.orderForm.value.deliveryType === 'pick-up'
+          ? 'No location'
+          : this.orderForm.value.location,
+      deliveryType: this.orderForm.value.deliveryType,
+      deliveryFee:
+        this.orderForm.value.deliveryType === 'pick-up' ? 0 : this.deliveryFee,
       priceOfFood: this.priceOfFood,
       orderPaid: false,
       numberOfPacks: this.foodsOrdered.map((food) => ({
         [food.foodName]: food.quantity,
       })),
     };
+
+    console.log('orderDetails: ', this.orderDetails);
+    return;
 
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
@@ -223,6 +229,7 @@ export class OrderPageComponent implements OnInit {
     const selectedLocation = event.target.value;
     const city: { name: string; price: number } | undefined =
       this.locations.find((item) => item.name === selectedLocation);
+
     if (!city) {
       this.invalidLocation = true;
       // this.orderForm.patchValue({
