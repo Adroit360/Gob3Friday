@@ -118,7 +118,6 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    console.log(this.orderForm.invalid);
     // console.log('reference: ', this.clientTransactionId);
     if (this.orderForm.value.robot) {
       return;
@@ -139,7 +138,7 @@ export class OrderPageComponent implements OnInit {
       completed: false,
       location:
         this.orderForm.value.deliveryType === 'pick-up'
-          ? 'No location'
+          ? 'Pick Up'
           : this.orderForm.value.location,
       deliveryType: this.orderForm.value.deliveryType,
       deliveryFee:
@@ -150,9 +149,6 @@ export class OrderPageComponent implements OnInit {
         [food.foodName]: food.quantity,
       })),
     };
-
-    console.log('orderDetails: ', this.orderDetails);
-    return;
 
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
@@ -166,8 +162,8 @@ export class OrderPageComponent implements OnInit {
     };
 
     const body = {
-      amount: this.totalPrice * 100,
-      // amount: 0.03 * 100,
+      // amount: this.totalPrice * 100,
+      amount: 0.01 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
