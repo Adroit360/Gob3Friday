@@ -57,6 +57,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     // deliveryFee: new FormControl(''),
     // amount: new FormControl(0, Validators.required),
+    deliveryType: new FormControl('dispatch-rider', Validators.required),
     numberOfPacks: new FormControl(''),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
@@ -64,7 +65,7 @@ export class OrderPageComponent implements OnInit {
   });
 
   orderDetails: any;
-
+  showLocation = true;
   private socket: any;
   public data: any;
   modalOpen = false;
@@ -83,6 +84,7 @@ export class OrderPageComponent implements OnInit {
   deliveryFee = 0;
   totalPrice = 0;
   clientTransactionId = '';
+  deliveryType = 'dispatch-rider';
 
   ngOnInit(): void {
     window.scroll(0, 0);
@@ -94,6 +96,7 @@ export class OrderPageComponent implements OnInit {
       this.orderForm.patchValue({
         amount: data.price,
         foodOrdered: data.body,
+        deliveryType: this.deliveryType,
       });
       this.foodsOrdered.push({
         id,
@@ -114,6 +117,9 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
+
+    console.log(this.orderForm.value);
+    return;
 
     // console.log('reference: ', this.clientTransactionId);
     if (this.orderForm.value.robot) {
@@ -286,5 +292,13 @@ export class OrderPageComponent implements OnInit {
       .toFixed(2);
 
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+  }
+
+  onDeliveryTypeChange(event: any) {
+    if (event.target.value === 'pick-up') {
+      this.showLocation = false;
+    } else {
+      this.showLocation = true;
+    }
   }
 }

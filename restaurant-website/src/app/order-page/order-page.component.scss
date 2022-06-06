@@ -250,6 +250,21 @@
       cursor: pointer;
     }
   }
+  .delivery-details {
+    display: flex;
+    .delivery-details-input {
+      display: flex;
+      flex-grow: 1;
+      gap: 1rem;
+      label {
+        font-weight: 400;
+        width: 100%;
+      }
+      input {
+        width: auto;
+      }
+    }
+  }
 }
 
 /*****POPUP MODAL***********/
