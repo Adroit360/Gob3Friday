@@ -177,7 +177,6 @@ export class OrderPageComponent implements OnInit {
     if (valError) {
       this.isValidLocationOrPacks = true;
       this.errorMessage = valError;
-      this.orderForm.setErrors({ invalid: true });
       return;
     }
     const httpOptions = {
