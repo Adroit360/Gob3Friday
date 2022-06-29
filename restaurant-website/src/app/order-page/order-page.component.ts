@@ -36,6 +36,8 @@ export class OrderPageComponent implements OnInit {
   payStackUrl: any;
   payStackModal = false;
   showLocation = true;
+  invalidLocation = false;
+  isValidLocationOrPacks = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -59,7 +61,7 @@ export class OrderPageComponent implements OnInit {
     // deliveryFee: new FormControl(''),
     // amount: new FormControl(0, Validators.required),
     deliveryType: new FormControl('dispatch-rider', Validators.required),
-    numberOfPacks: new FormControl(''),
+    numberOfPacks: new FormControl('', Validators.required),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
     robot: new FormControl(''),
@@ -79,7 +81,7 @@ export class OrderPageComponent implements OnInit {
   paymentLoading = false;
   price = '';
   locations: { name: string; price: number }[] = cities;
-  invalidLocation = false;
+  errorMessage = '';
   priceOfFood = '';
   deliveryFee = 0;
   totalPrice = 0;
@@ -118,10 +120,31 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    // console.log('reference: ', this.clientTransactionId);
+    const isfoodsOrderedValid = this.foodsOrdered.filter(
+      (food) => !food.quantity
+    );
+
+    if (isfoodsOrderedValid.length > 0) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage =
+        'Please select the number of packs for each food item';
+      this.orderForm.setErrors({ invalid: true });
+      return;
+    }
+
     if (this.orderForm.value.robot) {
       return;
     }
+
+    if (
+      (this.invalidLocation || this.f['location'].errors) &&
+      this.showLocation
+    ) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage = 'Please select a valid location';
+      return;
+    }
+
     if ((this.orderForm.invalid || this.invalidLocation) && this.showLocation) {
       return;
     }
@@ -152,9 +175,11 @@ export class OrderPageComponent implements OnInit {
 
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage = valError;
+      this.orderForm.setErrors({ invalid: true });
       return;
     }
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -167,6 +192,7 @@ export class OrderPageComponent implements OnInit {
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
+
     this.paymentLoading = true;
     this.http
       .post<PaymentResponse>(this.url, body, httpOptions)
@@ -187,14 +213,19 @@ export class OrderPageComponent implements OnInit {
     if (orderDetails.foodOrdered.length == 0) {
       return 'Please select at least one food item';
     }
+
     let invalidNumberOfPacks = Object.keys(orderDetails.numberOfPacks).filter(
-      (i) => !orderDetails.numberOfPacks[i]
+      (i) => {
+        !orderDetails.numberOfPacks[i];
+      }
     );
     if (invalidNumberOfPacks.length > 0) {
       return 'Please select the number of packs for each food item';
     }
     return false;
   }
+
+  validateFoodItem(foodItem: any) {}
 
   onClose(): void {
     this.paymentError = false;
@@ -206,38 +237,30 @@ export class OrderPageComponent implements OnInit {
       foodsPrice += Number(food.price * +food.quantity);
     });
     this.priceOfFood = foodsPrice.toFixed(2);
-    if (this.deliveryFee)
-      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+    // if (this.deliveryFee)
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
 
     // console.log('foodsOrdered', this.foodsOrdered, foodsPrice);
     return;
-
-    let quantity = event.target.value;
-    this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
-    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
-
-    // this.orderForm.patchValue({
-    //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
-    // });
   }
 
   onCalculateFee(event: any): void {
-    const selectedLocation = event.target.value;
+    let selectedLocation: any;
+    if (event.target) {
+      selectedLocation = event.target.value;
+    } else {
+      selectedLocation = event;
+    }
+
     const city: { name: string; price: number } | undefined =
       this.locations.find((item) => item.name === selectedLocation);
 
     if (!city) {
       this.invalidLocation = true;
-      // this.orderForm.patchValue({
-      //   deliveryFee: '',
-      // });
       this.deliveryFee = 0;
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     } else {
       this.invalidLocation = false;
-      // this.orderForm.patchValue({
-      //   deliveryFee: city.price.toFixed(2),
-      // });
       this.deliveryFee = city.price;
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     }
@@ -301,8 +324,16 @@ export class OrderPageComponent implements OnInit {
     if (event.target.value === 'pick-up') {
       this.showLocation = false;
       this.deliveryFee = 0;
+      this.calculateAmount(event);
     } else {
       this.showLocation = true;
+      if (this.orderForm.value.location) {
+        this.onCalculateFee(this.orderForm.value.location);
+      }
     }
+  }
+  onCloseLocationModal() {
+    window.scroll(0, 0);
+    this.isValidLocationOrPacks = false;
   }
 }

@@ -1,5 +1,6 @@
 <main class="display__container">
   <h1 class="title">Orders</h1>
+  <!-- <p *ngFor="let item of allOrders$ | async">name: {{item.name}} , phoneNumber: {{item.phoneNumber}}</p> -->
   <div class="display__container__items">
     <app-single-order
       *ngFor="let item of item$ | async"

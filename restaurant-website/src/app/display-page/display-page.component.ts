@@ -20,6 +20,7 @@ interface Order {
 })
 export class DisplayPageComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
+  //allOrders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
@@ -28,7 +29,6 @@ export class DisplayPageComponent implements OnInit {
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
     let itemSubs = this.item$.subscribe((res) => {
-      console.log(res.length);
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
       else this.isFirstTime = false;
@@ -36,6 +36,13 @@ export class DisplayPageComponent implements OnInit {
       this.itemLength = res.length;
     });
 
+    // this.allOrders$ = this.onGetAllOrders();
+    // this.allOrders$.subscribe((res) => {
+    //   console.log(res.length);
+    //   res.forEach((item) => {
+    //     console.log({ name: item.name, phoneNumber: item.phoneNumber });
+    //   });
+    // });
     this.subscriptions.push(itemSubs);
   }
 
@@ -58,6 +65,10 @@ export class DisplayPageComponent implements OnInit {
           .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
+  }
+
+  onGetAllOrders(): Observable<any> {
+    return this.firestore.collection('orders').valueChanges();
   }
 
   onOrderDelivered(id: string, orderId: string): void {
