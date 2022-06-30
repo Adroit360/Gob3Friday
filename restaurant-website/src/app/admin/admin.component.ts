@@ -14,13 +14,13 @@ export class AdminComponent implements OnInit {
   private socket: any;
   toggleSidebar = false;
   constructor(private router: Router, private http: HttpClient) {
-    this.socket = io('https://gob3-friday.herokuapp.com/');
+    this.socket = io('https://gob3-friday-api.azurewebsites.net/');
   }
 
   ngOnInit(): void {
     this.router.navigate(['/admin/orders']);
     this.http
-      .get('https://gob3-friday.herokuapp.com/')
+      .get('https://gob3-friday-api.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
