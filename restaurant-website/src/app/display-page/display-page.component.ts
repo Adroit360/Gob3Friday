@@ -52,7 +52,7 @@ export class DisplayPageComponent implements OnInit {
       this.totalOrders = 0;
       this.foodOrdered = [];
       items.forEach((item) => {
-        //this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
+        // this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
         if (
           parseInt(item.date) >= this.startDate.getTime() &&
           parseInt(item.date) <= this.endDate
@@ -64,9 +64,8 @@ export class DisplayPageComponent implements OnInit {
           this.totalOrders += 1;
         }
       });
-      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+      this.amountTobePayed = +(this.totalAmount * 0.8).toFixed(2); // calculate 20% of the total food revenue
     });
-
     this.subscriptions.push(itemSubs);
   }
 
