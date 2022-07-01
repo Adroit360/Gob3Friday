@@ -73,11 +73,11 @@ export class DisplayPageComponent implements OnInit {
   success: boolean = false;
 
   ngOnInit(): void {
-    let authUserstring = localStorage.getItem('authUser');
-    if (authUserstring) {
-      let authUser = JSON.parse(authUserstring);
-      this.showOrderDetails = authUser.isAdmin;
-    }
+    // let authUserstring = localStorage.getItem('authUser');
+    // if (authUserstring) {
+    //   let authUser = JSON.parse(authUserstring);
+    //   this.showOrderDetails = authUser.isAdmin;
+    // }
   }
 
   ngOnDestroy(): void {
