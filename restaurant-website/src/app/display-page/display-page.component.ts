@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
 import { OrderType } from '../single-order/single-order.component';
@@ -19,16 +18,27 @@ interface Order {
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
-  //allOrders$: Observable<OrderDetailsAdmin[]>;
+  orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
+  showOrderDetails = false;
   itemLength: number = 0;
   subscriptions: Subscription[] = [];
+  totalAmount = 0;
+  totalOrders = 0;
+  amountTobePayed = 0;
+  startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  endDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+  ).setHours(23, 59, 59, 999);
+  foodOrdered: OrderDetailsAdmin[] = [];
+  customers: { name: string; phoneNumber: string }[] = [];
   constructor(private firestore: AngularFirestore) {
-    this.item$ = this.exampleGetCollection();
-    let itemSubs = this.item$.subscribe((res) => {
+    this.orders$ = this.onGetTotalOrdersCollection();
+    let itemSubs = this.orders$.subscribe((res) => {
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
       else this.isFirstTime = false;
@@ -36,19 +46,39 @@ export class DisplayPageComponent implements OnInit {
       this.itemLength = res.length;
     });
 
-    // this.allOrders$ = this.onGetAllOrders();
-    // this.allOrders$.subscribe((res) => {
-    //   console.log(res.length);
-    //   res.forEach((item) => {
-    //     console.log({ name: item.name, phoneNumber: item.phoneNumber });
-    //   });
-    // });
+    // get the total orders and total amount
+    this.orders$.subscribe((items) => {
+      this.totalAmount = 0;
+      this.totalOrders = 0;
+      this.foodOrdered = [];
+      items.forEach((item) => {
+        //this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
+        if (
+          parseInt(item.date) >= this.startDate.getTime() &&
+          parseInt(item.date) <= this.endDate
+        ) {
+          if (!item.completed) {
+            this.foodOrdered.push(item);
+          }
+          this.totalAmount += parseFloat(item.priceOfFood);
+          this.totalOrders += 1;
+        }
+      });
+      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+    });
+
     this.subscriptions.push(itemSubs);
   }
 
   success: boolean = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let authUserstring = localStorage.getItem('authUser');
+    if (authUserstring) {
+      let authUser = JSON.parse(authUserstring);
+      this.showOrderDetails = authUser.isAdmin;
+    }
+  }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
@@ -67,8 +97,12 @@ export class DisplayPageComponent implements OnInit {
       .valueChanges({ idField: 'Id' });
   }
 
-  onGetAllOrders(): Observable<any> {
-    return this.firestore.collection('orders').valueChanges();
+  onGetTotalOrdersCollection(): Observable<any> {
+    return this.firestore
+      .collection('orders', (orders) =>
+        orders.where('orderPaid', '==', true).orderBy('date', 'desc')
+      )
+      .valueChanges({ idField: 'Id' });
   }
 
   onOrderDelivered(id: string, orderId: string): void {
