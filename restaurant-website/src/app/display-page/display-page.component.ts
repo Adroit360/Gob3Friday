@@ -52,7 +52,6 @@ export class DisplayPageComponent implements OnInit {
       this.totalOrders = 0;
       this.foodOrdered = [];
       items.forEach((item) => {
-        // this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
         if (
           parseInt(item.date) >= this.startDate.getTime() &&
           parseInt(item.date) <= this.endDate
