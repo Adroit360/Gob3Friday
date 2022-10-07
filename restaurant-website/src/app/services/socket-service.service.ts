@@ -40,13 +40,13 @@ export class SocketService {
       price: '60.00',
     },
 
-    {
-      id: 'c92a574c98634a70998b71d110f51fd5',
-      body: 'Aboboi & Tatale (5Pcs)',
-      image: '../../assets/newAboboi.jpeg',
-      alt: 'Aboboi & Tatale (5Pcs)',
-      price: '30.00',
-    },
+    // {
+    //   id: 'c92a574c98634a70998b71d110f51fd5',
+    //   body: 'Aboboi & Tatale (5Pcs)',
+    //   image: '../../assets/newAboboi.jpeg',
+    //   alt: 'Aboboi & Tatale (5Pcs)',
+    //   price: '30.00',
+    // },
     {
       id: 'ddbf19c31b9c4844865bf59fbb8fc987',
       body: 'with extra plantain',
