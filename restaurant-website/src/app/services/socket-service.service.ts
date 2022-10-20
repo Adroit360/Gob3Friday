@@ -16,14 +16,14 @@ export class SocketService {
       body: 'Gob3 small pack',
       image: '../../assets/standardPack.jpeg',
       alt: 'Beans with plantain(Mini size)',
-      price: '15.00',
+      price: '25.00',
     },
     {
       id: '3646754e10574da3a16a90e2ecff5e06',
       body: 'Gob3 standard pack(Full size)',
       image: '../../assets/gob3StandardPackFull.jpeg',
       alt: 'Gob3 standard pack(Full size)',
-      price: '20.00',
+      price: '30.00',
     },
     {
       id: '4d2da93389ce48aa8841c56891494942',
@@ -40,13 +40,13 @@ export class SocketService {
       price: '60.00',
     },
 
-    // {
-    //   id: 'c92a574c98634a70998b71d110f51fd5',
-    //   body: 'Aboboi & Tatale (5Pcs)',
-    //   image: '../../assets/newAboboi.jpeg',
-    //   alt: 'Aboboi & Tatale (5Pcs)',
-    //   price: '30.00',
-    // },
+    {
+      id: 'c92a574c98634a70998b71d110f51fd5',
+      body: 'Aboboi & Tatale (5Pcs)',
+      image: '../../assets/newAboboi.jpeg',
+      alt: 'Aboboi & Tatale (5Pcs)',
+      price: '35.00',
+    },
     {
       id: 'ddbf19c31b9c4844865bf59fbb8fc987',
       body: 'with extra plantain',
