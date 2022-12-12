@@ -32,25 +32,17 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
   subscription: Subscription = new Subscription();
 
-  ngOnInit(): void {
-    // this.breakTime = this.socketService.getClosingTime();
-    // this.http
-    //   .get('https://gob3-friday-api.azurewebsites.net/')
-    //   .subscribe((res: any) => {
-    //     this.orderStatus = res.orderStatus;
-    //     const currentDate = new Date();
-    //     const currentTime = currentDate.toString().split(' ')[4].toString();
-    //     if (
-    //       currentTime < this.breakTime.openingTime ||
-    //       currentTime > this.breakTime.closingTime ||
-    //       this.orderStatus
-    //     ) {
-    //       this.closingTimeError = true;
-    //     } else {
-    //       this.closingTimeError = false;
-    //     }
-    //   });
+  headings = [
+    'gob3 friday',
+    'lorem ipsum',
+    'qqqqqqq',
+    'dkdkdkdkdkdk',
+    'dddddididi',
+  ];
 
+  selectedIndex = 0;
+
+  ngOnInit(): void {
     this.http
       .get('https://gob3-friday-api.azurewebsites.net/')
       .subscribe((res: any) => {
@@ -72,26 +64,25 @@ export class HomepageComponent implements OnInit {
     });
 
     this.foodArray = this.socketService.getAllFoods();
+    // autoslide items
+    setInterval(() => {
+      this.onNextItem();
+    }, 5000);
   }
 
   onProceedToOrderPage(id: number): void {
-    // const currentDate = new Date();
-    // const currentTime = currentDate.toString().split(' ')[4].toString();
-    // if (
-    //   currentTime < this.breakTime.openingTime ||
-    //   currentTime > this.breakTime.closingTime ||
-    //   this.orderStatus
-    // ) {
-    //   this.closingTimeError = true;
-    // } else {
-    //   this.closingTimeError = false;
-    //   this.router.navigate(['/orders', id]);
-    // }
     if (this.orderStatus) {
       this.closingTimeError = true;
     } else {
       this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
+    }
+  }
+  onNextItem() {
+    if (this.selectedIndex === this.headings.length - 1) {
+      this.selectedIndex = 0;
+    } else {
+      this.selectedIndex += 1;
     }
   }
 }
