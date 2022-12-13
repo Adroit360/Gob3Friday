@@ -113,7 +113,10 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         } else {
           this.i = 0;
         }
-        this.typingEffect();
+        setTimeout(() => {
+          this.typingEffect();
+        }, 2000);
+
         return false;
       }
       setTimeout(loopDeleting, this.deleteSpeedMilliseconds);
