@@ -1,5 +1,11 @@
 import { SocketService } from './../services/socket-service.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
 import { Subscription } from 'rxjs';
@@ -10,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
-export class HomepageComponent implements OnInit {
+export class HomepageComponent implements OnInit, AfterViewInit {
   private socket: any;
   constructor(
     private router: Router,
@@ -32,15 +38,13 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
   subscription: Subscription = new Subscription();
 
-  headings = [
-    'gob3 friday',
-    'lorem ipsum',
-    'qqqqqqq',
-    'dkdkdkdkdkdk',
-    'dddddididi',
-  ];
+  wordArray = ['gob3 friday', 'GOB3 GATHERING', 'gob3 friday', 'GOB3 EVERYDAY'];
+  private i = 0;
 
-  selectedIndex = 0;
+  @ViewChild('textElement') textElement!: ElementRef;
+  @ViewChild('blinkElement') blinkElement!: ElementRef;
+  typingSpeedMilliseconds = 300;
+  deleteSpeedMilliseconds = 200;
 
   ngOnInit(): void {
     this.http
@@ -64,10 +68,11 @@ export class HomepageComponent implements OnInit {
     });
 
     this.foodArray = this.socketService.getAllFoods();
-    // autoslide items
-    setInterval(() => {
-      this.onNextItem();
-    }, 5000);
+  }
+
+  ngAfterViewInit(): void {
+    // this.initVariables();
+    this.typingEffect();
   }
 
   onProceedToOrderPage(id: number): void {
@@ -78,11 +83,41 @@ export class HomepageComponent implements OnInit {
       this.router.navigate(['/orders', id]);
     }
   }
-  onNextItem() {
-    if (this.selectedIndex === this.headings.length - 1) {
-      this.selectedIndex = 0;
-    } else {
-      this.selectedIndex += 1;
-    }
+
+  private typingEffect(): void {
+    const word = this.wordArray[this.i].split('');
+    const loopTyping = () => {
+      if (word.length > 0) {
+        this.textElement.nativeElement.innerHTML += word.shift();
+      } else {
+        setTimeout(() => {
+          this.deletingEffect();
+        }, 5000);
+
+        return;
+      }
+      setTimeout(loopTyping, this.typingSpeedMilliseconds);
+    };
+    loopTyping();
+  }
+
+  private deletingEffect(): void {
+    const word = this.wordArray[this.i].split('');
+    const loopDeleting = () => {
+      if (word.length > 0) {
+        word.pop();
+        this.textElement.nativeElement.innerHTML = word.join('');
+      } else {
+        if (this.wordArray.length > this.i + 1) {
+          this.i++;
+        } else {
+          this.i = 0;
+        }
+        this.typingEffect();
+        return false;
+      }
+      setTimeout(loopDeleting, this.deleteSpeedMilliseconds);
+    };
+    loopDeleting();
   }
 }

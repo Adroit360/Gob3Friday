@@ -317,3 +317,26 @@
 3. background-image: linear-gradient(to right bottom, #43cea2, #00b5b3, #0099bb, #007ab4, #185a9d); // great
 4. Will go with this  background-image: linear-gradient(to bottom, #3b7eeb, #0094ee, #00a6e9, #15b6df, #5bc3d5);
 **/
+
+.blink {
+  border-right: 2px solid;
+  margin-left: 0.5rem;
+  // animation: 1s blink infinity;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
